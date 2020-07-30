@@ -11,14 +11,46 @@ class TicTacToe
     ]
   
   
+  def display_board
+    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
+    puts "-----------"
+    puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
+    puts "-----------"
+    puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
+  end
   
+  def input_to_index(input)
+    x = input.to_i 
+    index = x-=1
+    index
+  end
   
+  def move(index,token = "X")
+   #@board[0] = "X"
+   #@board[4] = "O"
+   @board[index] = token 
   
+  end
   
+  def position_taken?(position)
+   if @board[position] != " "
+      true 
+    else 
+      false 
+   end 
+  end
   
+  def valid_move?(position)
+   if @board[position] == " "
+     true 
+   else 
+     false 
+   end
+  end
   
-  
-  
+  def turn 
+    
+  end  
   
   
   
