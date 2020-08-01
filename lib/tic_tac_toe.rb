@@ -41,17 +41,94 @@ class TicTacToe
   end
   
   def valid_move?(position)
-   if @board[position] == " "
+   if @board[position] == " " && position.between?(0,8)
      true 
    else 
      false 
    end
   end
   
-  def turn 
-    
-  end  
+  def turn_count
+    @board.count {|i| i != " "}
+  end 
   
+  def current_player 
+    if turn_count % 2 == 0 
+      "X"
+    else
+      "O"
+    end 
+  end
+  
+  def turn 
+    puts "Please choose 1-9"
+    input = gets.strip
+    index = input_to_index(input)
+    user = current_player 
+    if valid_move?(index)
+      move(index,user)
+      display_board
+    else 
+     turn
+   end 
+ end 
+  
+  def won? 
+    WIN_COMBINATIONS.detect do |results|
+      if @board[results[0]] == "X" && @board[results[1]] == "X" && @board[results[2]] == "X"
+        results
+        elsif @board[results[0]] == "O" && @board[results[1]] == "O" && @board[results[2]] == "O"
+        results
+      else
+        false
+      end
+    end
+  end
+  
+  def full?
+    @board.all? {|i| i != " "}
+  end
+  
+  def draw?
+    if full? && !won? 
+      true 
+    else if won? && !full?
+      false 
+    else
+      nil 
+      end
+    end
+  end
+  
+  def over?
+    if won? || full?
+      true 
+    else
+      false 
+    end
+  end
+  
+  
+  def winner 
+    WIN_COMBINATIONS.detect do |results|
+      if @board[results[0]] == "X" && @board[results[1]] == "X" && @board[results[2]] == "X"
+        return "X"
+        elsif @board[results[0]] == "O" && @board[results[1]] == "O" && @board[results[2]] == "O"
+        return "O"
+      else
+        nil 
+      end
+    end
+  end
+ 
+  def play 
+  turn until over?
+  if won? 
+      puts "Congratulations #{winner}!"
+    elsif draw?
+      puts  "Cat's Game!"
+  end
+end  
   
   
   
